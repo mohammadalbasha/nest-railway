@@ -1,0 +1,45 @@
+version: "3"
+services:
+ app:
+  container_name: nest-cloud
+  image: dockerfile
+  environment:
+    # DATABASE_USERNAME: "mohammadalbasha"
+    # DATABASE_PASSWORD: "!@#KaKa!@#123"
+    REDIS_URL: redis://redis:6379
+    PORT: 3000
+    MONGO_URL: mongodb://mongodb:27017
+  
+  # env_file:
+  #     - .env
+
+  # // env
+  # APP_PORT=3000
+  # .MONGODB_URL=mongodb://mongodb:27017/Restaurant
+  restart: always
+  build: .
+  #  ports:
+  #     - ${APP_PORT}:${APP_PORT}
+  ports:
+    - "3000:3000"
+  links:
+    - redis
+    - mongodb
+ redis: 
+   container_name: redis
+   environment:
+    # ALLOW_EMPTY_PASSWORD is recommended only for development.
+    - ALLOW_EMPTY_PASSWORD=yes
+    - REDIS_DISABLE_COMMANDS=FLUSHDB,FLUSHALL
+
+   image: redis
+   ports:
+     - '6379:6379'    
+ mongodb:
+  container_name: mongodb
+  image: mongo
+  volumes:
+  - ./data:/data/db
+  ports:
+  - '27017:27017' 
+  

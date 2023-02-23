@@ -18,8 +18,6 @@ module.exports.getOrSetCache =  (key, cb) => {
                         }
                         console.log("cache miss");
                         const new_data = await cb();
-                        console.log(new_data)
-                        console.log(key)
                         redisClient.setEx(key, 3600, JSON.stringify(new_data));
                         resolve(new_data);
                     })

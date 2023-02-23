@@ -27,4 +27,23 @@ export class UsersController {
 
 
     }
+
+    @Get('/add')
+    async users_add(){
+
+        // let users = await this.cacheManager.get('users');
+        // if (!users){
+        //     console.log (users);
+        //    users =  await this.userModel.find();
+        //    await this.cacheManager.set('users', JSON.stringify(users));
+        //    users = await this.cacheManager.get('users');
+          
+        // }
+        // return users;
+//        return getOrSetCache(`users`, () => {return this.userModel.find();})
+        // return this.userModel.find();        
+         const k = await this.userModel.create({name: "kaka"});
+         //await k.save();
+        return "kaka";
+    }
 }
